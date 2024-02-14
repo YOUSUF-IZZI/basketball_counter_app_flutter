@@ -1,12 +1,17 @@
 import 'package:basketball_counter/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'cubit/counter_cubit.dart';
+
 void main() {
-  runApp(PointsCounter());
+  runApp(const PointsCounter());
 }
 
 class PointsCounter extends StatelessWidget {
+  const PointsCounter({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -14,9 +19,12 @@ class PointsCounter extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: LoginScreen(),
+        return BlocProvider(
+          create: (context) => CounterCubit(),
+          child: const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: LoginScreen(),
+          ),
         );
       },
     );
